@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wedding Invitation — Arjun & Kavya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold2: #e8c97a;
+      --gold3: #f5e0a0;
+      --gold-dim: rgba(201,168,76,0.15);
+      --red: #8b1a1a;
+      --red2: #a52020;
+      --cream: #fdf6e8;
+      --cream2: #f7ead0;
+      --dark: #1a0a00;
+      --text: #2c1a00;
+      --text2: #6b4226;
+    }
+
+    body {
+      font-family: 'EB Garamond', serif;
+      background: var(--dark);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== BACKGROUND ===== */
+    .bg-wrap {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 0% 100%, rgba(201,168,76,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 100%, rgba(201,168,76,0.1) 0%, transparent 50%),
+        #120600;
+      position: relative;
+    }
+
+    /* Border frame */
+    .frame {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .frame-inner {
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 4px;
+      padding: 3rem 2.5rem;
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    /* Corner ornaments */
+    .frame-inner::before, .frame-inner::after {
+      content: '✦';
+      position: absolute;
+      color: var(--gold);
+      font-size: 1.2rem;
+      opacity: 0.6;
+    }
+    .frame-inner::before { top: -0.7rem; left: 50%; transform: translateX(-50%); background: #120600; padding: 0 0.5rem; }
+    .frame-inner::after { bottom: -0.7rem; left: 50%; transform: translateX(-50%); background: #120600; padding: 0 0.5rem; }
+    .corner { position: absolute; color: var(--gold); font-size: 1.4rem; opacity: 0.5; line-height: 1; }
+    .corner.tl { top: -0.75rem; left: -0.75rem; }
+    .corner.tr { top: -0.75rem; right: -0.75rem; }
+    .corner.bl { bottom: -0.75rem; left: -0.75rem; }
+    .corner.br { bottom: -0.75rem; right: -0.75rem; }
+
+    /* ===== TOP SECTION ===== */
+    .top-ornament {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      letter-spacing: 0.5rem;
+      opacity: 0.7;
+    }
+    .invite-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+    .family-text {
+      font-size: 1rem;
+      color: var(--cream2);
+      text-align: center;
+      line-height: 1.8;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+    .family-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold2);
+      letter-spacing: 0.08em;
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      display: flex; align-items: center; gap: 1rem;
+      width: 100%; margin: 1.75rem 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent); }
+    .divider-icon { color: var(--gold); font-size: 1rem; opacity: 0.7; }
+
+    /* ===== NAMES ===== */
+    .names-wrap { text-align: center; margin-bottom: 0.5rem; }
+    .groom-name, .bride-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 8vw, 4.2rem);
+      font-weight: 600;
+      color: var(--gold2);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .and-symbol {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: var(--red2);
+      font-style: italic;
+      display: block;
+      margin: 0.25rem 0;
+      opacity: 0.9;
+    }
+    .names-sub {
+      font-size: 0.82rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 0.75rem;
+      font-family: 'Cinzel', serif;
+      opacity: 0.7;
+    }
+
+    /* ===== EVENT DETAILS ===== */
+    .event-section {
+      width: 100%;
+      background: rgba(201,168,76,0.05);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .event-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+    .events-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .event-item { text-align: center; }
+    .event-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      opacity: 0.8;
+    }
+    .event-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .event-time { font-size: 0.82rem; color: var(--cream2); opacity: 0.7; margin-top: 0.1rem; }
+    .event-venue { font-size: 0.8rem; color: var(--gold2); margin-top: 0.3rem; opacity: 0.8; }
+
+    /* ===== COUNTDOWN ===== */
+    .countdown-wrap {
+      width: 100%;
+      text-align: center;
+      padding: 2rem 0 1rem;
+    }
+    .countdown-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0.7;
+    }
+    .countdown-digits {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .cd-block { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .cd-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      font-weight: 700;
+      color: var(--gold2);
+      min-width: 72px;
+      text-align: center;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 4px;
+      padding: 0.4rem 0.2rem;
+      line-height: 1;
+    }
+    .cd-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.6;
+    }
+    .cd-sep {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      color: var(--red2);
+      padding-top: 0.2rem;
+      opacity: 0.5;
+      padding-bottom: 1.2rem;
+    }
+
+    /* ===== VENUE ===== */
+    .venue-section { text-align: center; width: 100%; }
+    .venue-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--gold2);
+      margin-bottom: 0.3rem;
+    }
+    .venue-address { font-size: 0.88rem; color: var(--cream2); opacity: 0.7; line-height: 1.6; }
+
+    /* ===== BLESSINGS ===== */
+    .blessing {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--gold);
+      text-align: center;
+      opacity: 0.65;
+      line-height: 1.8;
+    }
+
+    /* ===== SHARE BTN ===== */
+    .share-wrap { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .share-btn {
+      padding: 0.65rem 1.5rem;
+      border-radius: 3px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid;
+    }
+    .share-btn.primary {
+      background: var(--gold);
+      color: var(--dark);
+      border-color: var(--gold);
+    }
+    .share-btn.primary:hover { background: var(--gold2); }
+    .share-btn.ghost {
+      background: transparent;
+      color: var(--gold);
+      border-color: rgba(201,168,76,0.4);
+    }
+    .share-btn.ghost:hover { border-color: var(--gold); }
+
+    /* ===== CONFETTI ===== */
+    #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 999; }
+
+    @media (max-width: 480px) {
+      .frame-inner { padding: 2rem 1.25rem; }
+      .events-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+      .groom-name, .bride-name { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+
+<div class="bg-wrap">
+  <div class="frame">
+    <div class="frame-inner">
+      <span class="corner tl">✦</span>
+      <span class="corner tr">✦</span>
+      <span class="corner bl">✦</span>
+      <span class="corner br">✦</span>
+
+      <!-- Top -->
+      <div class="top-ornament">🪔 ॐ 🪔</div>
+      <div class="invite-label">Together with their families</div>
+      <p class="family-text">
+        Shri Ramesh Kumar Sharma & Smt. Sunita Sharma<br>
+        <span style="opacity:0.5; font-size:0.85rem;">request the pleasure of your company at the wedding of their son</span>
+      </p>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-icon">🌹</div><div class="divider-line"></div></div>
+
+      <!-- Names -->
+      <div class="names-wrap">
+        <div class="groom-name">Arjun</div>
+        <span class="and-symbol">&</span>
+        <div class="bride-name">Kavya</div>
+        <div class="names-sub">Weds</div>
+      </div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+
+      <!-- Events -->
+      <div class="event-section">
+        <div class="event-title">Celebration Events</div>
+        <div class="events-grid">
+          <div class="event-item">
+            <div class="event-name">Haldi</div>
+            <div class="event-date">Nov 14</div>
+            <div class="event-time">10:00 AM</div>
+          </div>
+          <div class="event-item">
+            <div class="event-name">Mehendi</div>
+            <div class="event-date">Nov 14</div>
+            <div class="event-time">5:00 PM</div>
+          </div>
+          <div class="event-item">
+            <div class="event-name">Wedding</div>
+            <div class="event-date">Nov 15</div>
+            <div class="event-time">7:00 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-icon">🕯️</div><div class="divider-line"></div></div>
+
+      <!-- Countdown -->
+      <div class="countdown-wrap">
+        <div class="countdown-label">Counting down to the wedding</div>
+        <div class="countdown-digits" id="cdDigits">
+          <div class="cd-block"><div class="cd-num" id="cd">00</div><div class="cd-label">Days</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><div class="cd-num" id="ch">00</div><div class="cd-label">Hours</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><div class="cd-num" id="cm">00</div><div class="cd-label">Mins</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><div class="cd-num" id="cs">00</div><div class="cd-label">Secs</div></div>
+        </div>
+      </div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-icon">🌸</div><div class="divider-line"></div></div>
+
+      <!-- Venue -->
+      <div class="venue-section">
+        <div class="venue-main">Royal Marigold Banquet</div>
+        <div class="venue-address">12, MG Road, Near Raj Bhavan<br>New Delhi — 110001</div>
+      </div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+
+      <!-- Blessing -->
+      <p class="blessing">
+        "Two souls, one heart — bound by love,<br>blessed by the divine."
+      </p>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-icon">🌺</div><div class="divider-line"></div></div>
+
+      <!-- Share -->
+      <div class="share-wrap">
+        <button class="share-btn primary" onclick="shareWA()">📱 Share on WhatsApp</button>
+        <button class="share-btn ghost" onclick="copyLink()">🔗 Copy Link</button>
+        <a class="share-btn ghost" href="https://pankajbabbar35-ai.github.io/timerx/create.html" target="_blank">✦ Create Yours</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // Wedding date — Nov 15, 2026, 7:00 PM IST
+  const weddingDate = new Date('2026-11-15T19:00:00+05:30');
+
+  function tick() {
+    const now = new Date();
+    let diff = Math.floor((weddingDate - now) / 1000);
+    if (diff < 0) diff = 0;
+    const d = Math.floor(diff / 86400);
+    const h = Math.floor((diff % 86400) / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    const s = diff % 60;
+    document.getElementById('cd').textContent = String(d).padStart(2,'0');
+    document.getElementById('ch').textContent = String(h).padStart(2,'0');
+    document.getElementById('cm').textContent = String(m).padStart(2,'0');
+    document.getElementById('cs').textContent = String(s).padStart(2,'0');
+    if (diff === 0) launchConfetti();
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  function shareWA() {
+    const msg = '🪔 You are cordially invited to the wedding of Arjun & Kavya! 💍\n\nNov 15, 2026 | Royal Marigold Banquet, New Delhi\n\nView invitation & countdown: ' + window.location.href;
+    window.open('https://wa.me/?text=' + encodeURIComponent(msg));
+  }
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!'));
+  }
+
+  // Confetti
+  function launchConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const colors = ['#c9a84c','#e8c97a','#8b1a1a','#f5e0a0','#ffffff','#ffd700','#ff6b6b'];
+    const pieces = Array.from({length: 200}, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      w: Math.random() * 10 + 5, h: Math.random() * 5 + 3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      rot: Math.random() * 360,
+      vx: (Math.random() - 0.5) * 3,
+      vy: Math.random() * 4 + 2,
+      vr: (Math.random() - 0.5) * 8, alpha: 1
+    }));
+    let f = 0;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(p => {
+        ctx.save(); ctx.globalAlpha = p.alpha;
+        ctx.translate(p.x + p.w/2, p.y + p.h/2);
+        ctx.rotate(p.rot * Math.PI / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+        ctx.restore();
+        p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        if (p.y > canvas.height * 0.6) p.alpha -= 0.015;
+      });
+      if (++f < 300) requestAnimationFrame(draw);
+    }
+    draw();
+  }
+</script>
+</body>
+</html>
