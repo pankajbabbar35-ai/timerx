@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TimerX — Live Countdown Timers</title>
+  <meta name="description" content="Create and share beautiful countdown timers for any event. Free, instant, no login required." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">⏱ TimerX</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="create.html" class="nav-link">Create Timer</a>
+        <a href="my-timers.html" class="nav-link">My Timers</a>
+      </div>
+      <a href="create.html" class="btn-primary">+ New Timer</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">100% Free · No Login Needed</span>
+      <h1>Countdown to <span class="highlight">anything</span></h1>
+      <p class="hero-sub">Create a timer for your birthday, event, deadline, or holiday — and share it with anyone instantly.</p>
+      <div class="hero-actions">
+        <a href="create.html" class="btn-primary btn-lg">Create Your Timer →</a>
+        <a href="#examples" class="btn-ghost btn-lg">See Examples</a>
+      </div>
+    </div>
+    <div class="hero-demo">
+      <div class="demo-timer" id="heroTimer">
+        <div class="demo-label">New Year 2026</div>
+        <div class="demo-digits">
+          <div class="digit-block"><span id="hd">00</span><small>Days</small></div>
+          <div class="sep">:</div>
+          <div class="digit-block"><span id="hh">00</span><small>Hours</small></div>
+          <div class="sep">:</div>
+          <div class="digit-block"><span id="hm">00</span><small>Mins</small></div>
+          <div class="sep">:</div>
+          <div class="digit-block"><span id="hs">00</span><small>Secs</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories" id="examples">
+    <div class="container">
+      <h2 class="section-title">Popular Timer Types</h2>
+      <div class="category-grid">
+        <a href="create.html?type=birthday" class="category-card">
+          <div class="cat-icon">🎂</div>
+          <div class="cat-name">Birthday</div>
+          <div class="cat-desc">Count down to your special day</div>
+        </a>
+        <a href="create.html?type=event" class="category-card">
+          <div class="cat-icon">🎉</div>
+          <div class="cat-name">Event</div>
+          <div class="cat-desc">Parties, concerts, launches</div>
+        </a>
+        <a href="create.html?type=holiday" class="category-card">
+          <div class="cat-icon">🎄</div>
+          <div class="cat-name">Holiday</div>
+          <div class="cat-desc">Christmas, Diwali, Eid & more</div>
+        </a>
+        <a href="create.html?type=wedding" class="category-card">
+          <div class="cat-icon">💍</div>
+          <div class="cat-name">Wedding</div>
+          <div class="cat-desc">Your big day countdown</div>
+        </a>
+        <a href="create.html?type=exam" class="category-card">
+          <div class="cat-icon">📚</div>
+          <div class="cat-name">Exam / Deadline</div>
+          <div class="cat-desc">Study harder with a timer</div>
+        </a>
+        <a href="create.html?type=sports" class="category-card">
+          <div class="cat-icon">🏆</div>
+          <div class="cat-name">Sports</div>
+          <div class="cat-desc">World Cup, IPL, Olympics</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Pick a date</h3>
+          <p>Choose your event date and time. Give it a name and pick a theme.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Customize</h3>
+          <p>Choose colors, background, and display style for your timer.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Share</h3>
+          <p>Copy your unique link and share it with friends, on WhatsApp, or anywhere.</p>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top: 2.5rem;">
+        <a href="create.html" class="btn-primary btn-lg">Create a Free Timer Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>⏱ <strong>TimerX</strong> — Free countdown timers for everyone</p>
+      <p class="footer-sub">Made with ❤️ · Hosted on GitHub Pages</p>
+    </div>
+  </footer>
+
+  <script>
+    function updateHeroTimer() {
+      const now = new Date();
+      const target = new Date(now.getFullYear() + 1, 0, 1);
+      let diff = Math.floor((target - now) / 1000);
+      if (diff < 0) diff = 0;
+      const d = Math.floor(diff / 86400);
+      const h = Math.floor((diff % 86400) / 3600);
+      const m = Math.floor((diff % 3600) / 60);
+      const s = diff % 60;
+      document.getElementById('hd').textContent = String(d).padStart(2,'0');
+      document.getElementById('hh').textContent = String(h).padStart(2,'0');
+      document.getElementById('hm').textContent = String(m).padStart(2,'0');
+      document.getElementById('hs').textContent = String(s).padStart(2,'0');
+    }
+    updateHeroTimer();
+    setInterval(updateHeroTimer, 1000);
+  </script>
+</body>
+</html>

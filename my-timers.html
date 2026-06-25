@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Timers — TimerX</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">⏱ TimerX</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="create.html" class="nav-link">Create Timer</a>
+        <a href="my-timers.html" class="nav-link active">My Timers</a>
+      </div>
+      <a href="create.html" class="btn-primary">+ New Timer</a>
+    </div>
+  </nav>
+
+  <div class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <div class="page-header">
+      <h1 class="page-title">My Timers</h1>
+      <p class="page-sub">All timers you've created on this browser</p>
+    </div>
+
+    <div id="timersGrid" class="timers-grid"></div>
+    <div id="emptyState" class="empty-state" style="display:none">
+      <div class="empty-icon">⏰</div>
+      <h2>No timers yet</h2>
+      <p>Create your first countdown timer — it's free and takes 30 seconds!</p>
+      <a href="create.html" class="btn-primary btn-lg">Create a Timer</a>
+    </div>
+  </div>
+
+  <script>
+    function loadTimers() {
+      const saved = JSON.parse(localStorage.getItem('timerx_timers') || '[]');
+      const grid = document.getElementById('timersGrid');
+      const empty = document.getElementById('emptyState');
+
+      if (saved.length === 0) {
+        empty.style.display = 'block';
+        return;
+      }
+
+      grid.innerHTML = '';
+      saved.forEach((t, i) => {
+        const target = new Date(t.date);
+        const now = new Date();
+        const diff = Math.floor((target - now) / 1000);
+        const expired = diff <= 0;
+
+        let timeLeft = '';
+        if (!expired) {
+          const d = Math.floor(diff / 86400);
+          const h = Math.floor((diff % 86400) / 3600);
+          if (d > 0) timeLeft = `${d}d ${h}h left`;
+          else timeLeft = `${h}h ${Math.floor((diff%3600)/60)}m left`;
+        } else {
+          timeLeft = 'Expired';
+        }
+
+        const card = document.createElement('div');
+        card.className = 'saved-timer-card' + (expired ? ' expired' : '');
+        card.innerHTML = `
+          <div class="stc-top">
+            <span class="stc-emoji">${t.emoji}</span>
+            <span class="stc-status ${expired ? 'stc-expired' : 'stc-live'}">${expired ? 'Expired' : 'Live'}</span>
+          </div>
+          <div class="stc-name">${t.name}</div>
+          <div class="stc-date">${new Date(t.date).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'})}</div>
+          <div class="stc-left">${timeLeft}</div>
+          <div class="stc-actions">
+            <a href="${t.link}" target="_blank" class="stc-btn stc-view">View</a>
+            <button class="stc-btn stc-copy" onclick="copyIt('${t.link}', this)">Copy Link</button>
+            <button class="stc-btn stc-del" onclick="deleteTimer(${i})">Delete</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function copyIt(link, btn) {
+      navigator.clipboard.writeText(link).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy Link', 2000);
+      });
+    }
+
+    function deleteTimer(index) {
+      if (!confirm('Delete this timer?')) return;
+      const saved = JSON.parse(localStorage.getItem('timerx_timers') || '[]');
+      saved.splice(index, 1);
+      localStorage.setItem('timerx_timers', JSON.stringify(saved));
+      loadTimers();
+    }
+
+    loadTimers();
+  </script>
+</body>
+</html>

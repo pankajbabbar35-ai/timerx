@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Countdown Timer — TimerX</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body class="timer-page-body">
+
+  <nav class="navbar navbar-transparent">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">⏱ TimerX</a>
+      <a href="create.html" class="btn-primary">+ New Timer</a>
+    </div>
+  </nav>
+
+  <div class="timer-fullpage" id="timerFullpage">
+
+    <div class="timer-main-card" id="mainCard" data-theme="dark">
+      <div class="tmc-emoji" id="tmcEmoji">🎉</div>
+      <h1 class="tmc-name" id="tmcName">Loading...</h1>
+      <div class="tmc-datestr" id="tmcDateStr"></div>
+
+      <div class="tmc-digits" id="tmcDigits">
+        <div class="tmcd-block">
+          <div class="tmcd-num" id="td">00</div>
+          <div class="tmcd-label">Days</div>
+        </div>
+        <div class="tmcd-sep">:</div>
+        <div class="tmcd-block">
+          <div class="tmcd-num" id="th">00</div>
+          <div class="tmcd-label">Hours</div>
+        </div>
+        <div class="tmcd-sep">:</div>
+        <div class="tmcd-block">
+          <div class="tmcd-num" id="tm">00</div>
+          <div class="tmcd-label">Minutes</div>
+        </div>
+        <div class="tmcd-sep">:</div>
+        <div class="tmcd-block">
+          <div class="tmcd-num" id="ts">00</div>
+          <div class="tmcd-label">Seconds</div>
+        </div>
+      </div>
+
+      <div class="tmc-progress-wrap">
+        <div class="tmc-progress-bar" id="tmcProgress"></div>
+      </div>
+
+      <div class="tmc-msg" id="tmcMsg"></div>
+
+      <div class="tmc-actions">
+        <button class="tmc-btn" onclick="copyTimerLink()">🔗 Copy Link</button>
+        <button class="tmc-btn" onclick="shareWA()">📱 Share on WhatsApp</button>
+        <a href="create.html" class="tmc-btn">➕ Create New</a>
+      </div>
+    </div>
+
+    <div id="expiredBanner" class="expired-banner" style="display:none">
+      <div class="expired-inner">
+        <div class="expired-emoji" id="expEmoji">🎉</div>
+        <h2 id="expTitle">The time has come!</h2>
+        <p id="expMsg"></p>
+        <a href="create.html" class="btn-primary btn-lg">Create a New Timer</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name') || 'Countdown';
+    const dateStr = params.get('date') || '';
+    const emoji = params.get('emoji') || '🎉';
+    const theme = params.get('theme') || 'dark';
+    const style = params.get('style') || 'flip';
+    const msg = params.get('msg') || '';
+    const tz = params.get('tz') || 'Asia/Kolkata';
+
+    document.title = `${name} — TimerX`;
+    document.getElementById('tmcEmoji').textContent = emoji;
+    document.getElementById('tmcName').textContent = name;
+    document.getElementById('mainCard').dataset.theme = theme;
+    document.getElementById('mainCard').dataset.style = style;
+    if (msg) document.getElementById('tmcMsg').textContent = msg;
+
+    if (dateStr) {
+      const d = new Date(dateStr);
+      document.getElementById('tmcDateStr').textContent = d.toLocaleDateString('en-IN', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    const target = new Date(dateStr);
+    const created = Date.now();
+    const totalSeconds = Math.floor((target - created) / 1000);
+
+    function tick() {
+      const now = new Date();
+      let diff = Math.floor((target - now) / 1000);
+
+      if (diff <= 0) {
+        document.getElementById('tmcDigits').style.display = 'none';
+        document.getElementById('tmcProgress').style.display = 'none';
+        document.getElementById('expiredBanner').style.display = 'flex';
+        document.getElementById('expEmoji').textContent = emoji;
+        document.getElementById('expTitle').textContent = `${name} is here!`;
+        if (msg) document.getElementById('expMsg').textContent = msg;
+        return;
+      }
+
+      const d = Math.floor(diff / 86400);
+      const h = Math.floor((diff % 86400) / 3600);
+      const m = Math.floor((diff % 3600) / 60);
+      const s = diff % 60;
+
+      document.getElementById('td').textContent = String(d).padStart(2,'0');
+      document.getElementById('th').textContent = String(h).padStart(2,'0');
+      document.getElementById('tm').textContent = String(m).padStart(2,'0');
+      document.getElementById('ts').textContent = String(s).padStart(2,'0');
+
+      const pct = Math.max(0, Math.min(100, ((totalSeconds - diff) / totalSeconds) * 100));
+      document.getElementById('tmcProgress').style.width = pct + '%';
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    function copyTimerLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Link copied to clipboard!');
+      });
+    }
+    function shareWA() {
+      window.open(`https://wa.me/?text=Countdown%20to%20${encodeURIComponent(name)}!%20${encodeURIComponent(window.location.href)}`);
+    }
+  </script>
+</body>
+</html>
